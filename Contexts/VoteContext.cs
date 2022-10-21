@@ -1,8 +1,7 @@
 ﻿
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-
-using Microsoft.Extensions.Options;
+using EncryptClass;
 using Pickerlib.Models.Classes;
 
 namespace Pickerlib.Contexts
@@ -23,7 +22,18 @@ namespace Pickerlib.Contexts
             builder.SetBasePath(Directory.GetCurrentDirectory());
             builder.AddJsonFile("appsettings.json");
             var conf = builder.Build();
-            string connectionstring = conf.GetConnectionString("DefaultConnection");
+           
+            string encryptpass;
+            using (StreamReader sr = File.OpenText("./pass.txt"))
+            {
+                encryptpass = sr.ReadToEnd();
+            }
+
+            string decpass = SysDecrypt.Decrypt(encryptpass);
+
+            string connectionstring = String.Concat(conf.GetConnectionString("DefaultConnection"),$"password={decpass}");
+
+           
             optionsBuilder.UseMySql(connectionstring, new MySqlServerVersion(new Version(5, 5, 39)));
         }
 

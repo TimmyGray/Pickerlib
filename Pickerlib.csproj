@@ -19,4 +19,10 @@
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="EncryptClass">
+      <HintPath>..\EncryptClass\EncryptClass\bin\Debug\net6.0\EncryptClass.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

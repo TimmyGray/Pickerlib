@@ -12,7 +12,7 @@ namespace Pickerlib.Models.Classes
             return vote;
         }
 
-        public static Vote SelValue(string question, string answer1,string answer2, Vote vote) //Questino+ans1+ans2
+        public static Vote SetValue(string question, string answer1,string answer2, Vote vote) //Questino+ans1+ans2
         {
             vote.question = question;
             vote.answer1 = answer1;
@@ -20,7 +20,7 @@ namespace Pickerlib.Models.Classes
             return vote;
         }
 
-        public static Vote SelValue(DateTime date, Vote vote, bool start) //One Date
+        public static Vote SetValue(DateTime date, Vote vote, bool start) //One Date
         {
             if (start)
             {
@@ -78,11 +78,11 @@ namespace Pickerlib.Models.Classes
             vote.phone_number_2 = phone_number_2;
             return vote;
         }
-        
+
+                
         public static DateTime MakeDate(int hour, int min, int sec) //Parse Date
         {
-            try
-            {
+            
                 string h = "";
                 string m = "";
                 string s = "";
@@ -98,14 +98,17 @@ namespace Pickerlib.Models.Classes
                 {
                     s = "0";
                 }
+          
                 string parsedate = $"{DateTime.Now.Year}-{DateTime.Now.Month}-{DateTime.Now.Day} {h}{hour}:{m}{min}:{s}{sec}";
+            try
+            {
                 DateTime datetime = DateTime.ParseExact(parsedate, "yyyy-M-d HH:mm:ss", CultureInfo.InvariantCulture);
                 return datetime;
             }
             catch (Exception e)
             {
                 
-                throw new Exception(e.Message);
+                throw new Exception($"{e.Message}\n{e.StackTrace}\n{e.InnerException}\n{e.InnerException.Message}");
             }
 
 
