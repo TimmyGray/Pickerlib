@@ -14,19 +14,28 @@ namespace Pickerlib.Contexts
         public static bool CheckConn()
         
         {
-            using (VoteContext db = new VoteContext())
+            try
             {
-                try
+                using (VoteContext db = new VoteContext())
                 {
-                    var test = db.phone_vote_question.Any();
-                    return true;
-                }
-                catch (Exception e)
-                {
+                    try
+                    {
+                        var test = db.phone_vote_question.Any();
+                        return true;
+                    }
+                    catch (Exception)
+                    {
 
-                   return false;
+                        return false;
+                    }
                 }
             }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+            
             
         }
         #endregion
